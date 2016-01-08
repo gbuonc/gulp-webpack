@@ -8,11 +8,23 @@ module.exports = {
     },
     module: {
         loaders: [
-            // { test: /\.html$/,                                  loader: 'file?name=[name].[ext]',},
-            // { test: /\.css$/,                                   loader: 'style!css' },
-            // { test: /\.scss$/,                                  loader: 'style!css!autoprefixer!sass'},
-            // { test: /\.(png|jpg)$/,                             loader: 'url?limit=25000'},
-            // { test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,  loader : 'file-loader'}
+            {
+                test: /\.css$/,
+                loaders: ["style", "css"]
+            },
+            {
+                test: /\.scss$/,
+                loaders: ["style", "css", "sass"]
+            },
+            {
+                test: /\.js?$/,
+                exclude: /(node_modules|bower_components)/,
+                loader: 'babel',
+                query: {
+                    presets: ['es2015'],
+                    cacheDirectory: true
+                }
+            }
         ]
     },
     resolve: {
@@ -21,5 +33,6 @@ module.exports = {
     plugins: [
         new webpack.optimize.DedupePlugin(),
         new webpack.optimize.AggressiveMergingPlugin(),
+        new webpack.optimize.UglifyJsPlugin({minimize: true, sourceMap: true})
     ]
 };

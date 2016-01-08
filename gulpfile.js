@@ -27,7 +27,7 @@ gulp.task('clean', function () {
   return del(['dist/**/*']);
 });
 
-// compile + minify scss, move to dist
+// compile + minify scss, move to dist/static
 gulp.task('scss-build', function () {
   return gulp.src(['dev/compile/styles/**/*.scss'])
   .pipe(sass({
@@ -79,7 +79,7 @@ gulp.task("webpack", function(callback) {
 
 // =================================================================================
 // default task
-gulp.task('default', ['serve', 'build']);
+gulp.task('default', ['build', 'serve']);
 // setup local server
 gulp.task('serve', function(){
     runSequence(['serve']);
